@@ -1,2 +1,7 @@
 *.pdf
 *.docx
+*-checkpoint.ipynb
+*.pickle
+*.joblib
+catboost_info
+*.pyc
