@@ -48,7 +48,7 @@ In this project, the author emphasized machine learning model development, resul
 2. [ee_functions.py](ee_functions.py)
     - Functions script for data pre-processing and imputation
 3. [**ee-project-prototype.ipynb**](ee-project-prototype.ipynb)
-    - **Main Notebook developing the project**
+    - **Main Notebook developing the project** (2nd phase)
 
     *Disclaimer: The notebook contained code and experiments mostly without explanation, and re-running notebook could take more than 6 hours for models tuning*
 
@@ -75,7 +75,7 @@ Project Overview
 The Project consists of 3 main parts, including Data Improvement, Model Development, and Model Application.
 
 - Data Improvement
-    - How to transform and automated handle existing data to be input to develop models
+    - How to transform and automatic handle existing data to be input to develop models
     - How to impute missing values due to incompleted datasets
 - Model Development
     - Data Pre-processing and Feature Engineering
@@ -97,7 +97,7 @@ Firstly, using all datasets would be too big to develop ML models because of lon
 
 In statistic, one can evalute how well they impute missing values by fixing a model and the way they pre-process data, then use it as an input to get scores such as R-squared, MSE, and MAE from the prediction made by the fixed model as showed in the picture.
 
-Even there're models that handle missing values such as RandomForest, XGBoost, LightGBM, and CatBoost, but it still not an efficient way to impute the missing values without logic or knowledge, hence it came to imputaion techniques experiment in this project.
+Even there're models that handle missing values such as RandomForest, XGBoost, LightGBM, and CatBoost, but it's still not an efficient way to impute the missing values without logic or knowledge, hence it came to imputaion techniques experiment in this project.
 
 <img src="./Project%20Progress/plot/all-impute.jpg" alt="all-impute" width="75%">
 
@@ -107,24 +107,37 @@ The author presented 3 techniques with ML Imputer, including IterativeImputer, K
 
 In this project, the author used 2 types of feature engineering, including time-series feature engineering and rolling mean. The reason that the author didn't emphasize this part is to limit scope of the project. However, it's still important to do feature engineering to improve model performance.
 
-order of feature engineering and imputation affect model performance, because using model for imputation is a process of impute  
+Order of feature engineering and imputation affect model performance, because using model for imputation is a process of imputing missing values using prediction from other features. 
 ### 4. Scaling
 
+<img src="./Project%20Progress/plot/feature-importance-scale-compare.jpg" alt="feature-importance-scale-compare" width="75%">
+
+This project experiment prove that scaling data is important for tree-based models, especially LightGBM. The reason is that tree-based models use gradient descent to find the best split, and it's sensitive to the scale of data.
+
+Moreover, Scaling should be done separately between input and output if there's relationship between input and output, for example, output come from mathematic operation of input. And scaling should be done separately from train set and test set to avoid data leakage which increasing bias to the models. 
 ### 5. Tuning
 
+In this project, the author use HalvingRandomizedSearchCV as a tuner to reduce training time, since the accuracy of the model is not the main focus of the project. The author also used TimeSeriesSplit as a cross-validation technique to reduce overfitting.
 ### 6. Model development techniques
 
 Validation Curve
 
 <img src="./Project%20Progress/plot/n_estimators_validation_curve_xgb.png" alt="n_estimators_validation_curve_xgb" width="75%">
 
+As showed in the picture, fixing other hyperparameters, increasing n_estimators couldn't give us a sense of selecting proper range of n_estimators. Therefore, it's more proper to define search space and use in Random search.
 
+Early Stopping
 
+<img src="./Project%20Progress/plot/early-stopping-evaluate.jpg" alt="early-stopping-evaluate" width="75%">
+
+Early Stopping can be used to prevent overfitting and significantly reduce training time. However, the appropriate to use early stopping with TimeSeriesSplit for time series dataset is not covered and discuss in this project.
 
 ### 7. Model Evaluation
 Model performance comparison
 
 <img src="./Project%20Progress/plot/model_final.png" alt="model_final" width="75%">
+
+*Notice: Fitting time is re-training time not tuning time*
 
 Imputation performance comparison
 
@@ -134,23 +147,28 @@ Prediction Visualization
 
 <img src="./Project%20Progress/plot/output-lgbm.png" alt="output-lgbm" width="75%">
 
-<img src="./Project%20Progress/plot/output-lgbm-zoom3.png" alt="output-lgbm-zoom3" width="75%">
+<img src="./Project%20Progress/plot/output-zoom.jpg" alt="output-zoom" width="75%">
 
-<img src="./Project%20Progress/plot/output-lgbm-zoom1.png" alt="output-lgbm-zoom1" width="75%">
+Data Interval Effect
 
-<img src="./Project%20Progress/plot/output-lgbm-zoom2.png" alt="output-lgbm-zoom2" width="75%">
+<img src="./Project%20Progress/plot/zoom-interval.jpg" alt="zoom-interval" width="75%">
 
 Effect of imputation on outlier
 
-<img src="./Project%20Progress/plot/impute-outlier-raw.png" alt="impute-outlier-raw" width="75%">
-
-<img src="./Project%20Progress/plot/impute-outlier-impute.png" alt="impute-outlier-impute" width="75%">
+<img src="./Project%20Progress/plot/outlier-effect.jpg" alt="outlier-effect" width="75%">
 
 ### 8. Further application
 
 Clustering
+
+<img src="./Project%20Progress/plot/data-transform-clustering.jpg" alt="data-transform-clustering" width="75%">
+
+<img src="./Project%20Progress/plot/elbow-k-means.jpg" alt="elbow-k-means" width="75%">
+
+<img src="./Project%20Progress/plot/clustered-eda.png" alt="clustered-eda" width="75%">
+
 ## Conclusion
--
+*In development . . .*
 
 ***Writing README.md . . .***
 
