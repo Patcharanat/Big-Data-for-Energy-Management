@@ -2,7 +2,6 @@
 *By Patcharanat P.*
 
 ## Introduction
----
 Chulalongkorn University is an educational institute that consumes enormous energy power referring to the [CUBEMS website](https://www.bems.chula.ac.th/web/cham5/#/) monitoring building energy consumption. Hence, it seems to be utilizable and applicable if we are able to implement the data collected from the [CUBEMS project](https://www.nature.com/articles/s41597-020-00582-3) with Machine Learning and Data Improvement to initiate an idea of energy management and future research to optimize energy costs for Chulalongkorn University. Understanding the energy need could be a step further in planning the resources therefore, it became the main idea of this project to be created.
 
 In this project, the author emphasized machine learning model development, result evaluation, and data Improvement using the [CUBEMS dataset](https://github.com/Patcharanat/Big-Data-for-Energy-Management/tree/master/dataset), which recorded the Charmchuri 5 building’s energy consumption and characteristic of the environment. Most of the important works are written and some which are less relevant are only mentioned but not written in detail to give an idea for future works or further research.
@@ -10,7 +9,6 @@ In this project, the author emphasized machine learning model development, resul
 ***Keywords:** Machine Learning, Imputation, Data manipulation, Data Science, Energy management*
 
 ## Project Processes *(What to present in the project)*
----
 - Data Pre-processing and Feature Engineering
     - **Imputation: ItertiveImputer, KNNImputer, NaNImputer**
     - Time-series feature engineering
@@ -45,7 +43,6 @@ In this project, the author emphasized machine learning model development, resul
     - Data Transformation (for clustering)
     - **Clustering with K-Means**
 ## What this repo contains
----
 1. [pre-project-notebook-sample.ipynb](pre-project-notebook-sample.ipynb)
     - Notebook for 1st phase of the project
 2. [ee_functions.py](ee_functions.py)
@@ -71,12 +68,46 @@ In this project, the author emphasized machine learning model development, resul
 10. Additional files: `README.md`, `.gitignore`
     - not directly relevant to the project
 ## Project Summary
----
+Project Overview
+
+<img src="./Project%20Progress/plot/project-overview.jpg" alt="project-overview.png" width="75%">
+
+The Project consists of 3 main parts, including Data Improvement, Model Development, and Model Application.
+
+- Data Improvement
+    - How to transform and automated handle existing data to be input to develop models
+    - How to impute missing values due to incompleted datasets
+- Model Development
+    - Data Pre-processing and Feature Engineering
+    - Develop models to predict energy consumption
+        - Tune hyperparameters with Time series cross-validation
+        - Learn algorithms
+    - Evaluate model performance (both imputer and regression model)
+- Model Application
+    - How to further exploit model output to be useful for energy management
+    - Transform data and apply clustering to find the pattern of energy consumption
+
 ### 1. Raw Data EDA
 
+<img src="./Project%20Progress/plot/raw-eda.jpg" alt="raw-eda" width="75%">
+
+Firstly, using all datasets would be too big to develop ML models because of long training time. Therefore, we need to choose one which has proper characteristics (less outliers) unless we have to perform outliers removal. As showed in the picture, each floor has different characteristics of energy consumption. If we need to use model that trained by one floor to predict other floor, we need to re-train model with that floor. The author chose the 4th floor because it has the least outliers.
 ### 2. Imputation Techniques
+<img src="./Project%20Progress/plot/impute-process-evaluate.jpg" alt="impute-process-evaluate" width="75%">
+
+In statistic, one can evalute how well they impute missing values by fixing a model and the way they pre-process data, then use it as an input to get scores such as R-squared, MSE, and MAE from the prediction made by the fixed model as showed in the picture.
+
+Even there're models that handle missing values such as RandomForest, XGBoost, LightGBM, and CatBoost, but it still not an efficient way to impute the missing values without logic or knowledge, hence it came to imputaion techniques experiment in this project.
+
+<img src="./Project%20Progress/plot/all-impute.jpg" alt="all-impute" width="75%">
+
+The author presented 3 techniques with ML Imputer, including IterativeImputer, KNNImputer, and NaNImputer.
 
 ### 3. Feature Engineering
+
+In this project, the author used 2 types of feature engineering, including time-series feature engineering and rolling mean. The reason that the author didn't emphasize this part is to limit scope of the project. However, it's still important to do feature engineering to improve model performance.
+
+order of feature engineering and imputation affect model performance, because using model for imputation is a process of impute  
 ### 4. Scaling
 
 ### 5. Tuning
@@ -116,8 +147,9 @@ Effect of imputation on outlier
 <img src="./Project%20Progress/plot/impute-outlier-impute.png" alt="impute-outlier-impute" width="75%">
 
 ### 8. Further application
+
+Clustering
 ## Conclusion
----
 -
 
 ***Writing README.md . . .***
